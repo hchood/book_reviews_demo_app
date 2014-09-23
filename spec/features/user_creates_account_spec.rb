@@ -53,6 +53,8 @@ feature "User creates an account", %Q{
     visit root_path
     click_on "Sign up"
 
+    fill_in "First name", with: "Michael"
+    fill_in "Last name", with: "Bluth"
     fill_in "Email", with: existing_user.email
     fill_in "Password", with: existing_user.password
     fill_in "Password confirmation", with: existing_user.password
@@ -66,6 +68,11 @@ feature "User creates an account", %Q{
 
   scenario "password confirmation does not match password"
 
-  scenario "user is already logged in"
-
+  scenario "user is already logged in" do
+    # log in a user
+    user = FactoryGirl.create(:user)
+    sign_in_as(user)
+    # make sure Sign Up button isn't on page
+    expect(page).to_not have_content "Sign up"
+  end
 end
