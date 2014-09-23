@@ -72,6 +72,7 @@ feature "User creates an account", %Q{
     # log in a user
     user = FactoryGirl.create(:user)
     sign_in_as(user)
+
     # make sure Sign Up button isn't on page
     expect(page).to_not have_content "Sign up"
   end
